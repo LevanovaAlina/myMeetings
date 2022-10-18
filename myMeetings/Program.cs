@@ -37,8 +37,8 @@
                         break;
                     case 5:
                         Console.WriteLine("Введите путь для сохранения файла:");
-                        Console.ReadLine();
-                        logic.MeetingsExportWord(Console.ReadLine());
+                        var path = Console.ReadLine();
+                        logic.MeetingsExportWord(path);
                         break;
                     case 6:
                         Console.Clear();

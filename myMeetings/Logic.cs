@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
-using Word = Microsoft.Office.Interop.Word;
+using Spire.Doc;
+using Spire.Doc.Documents;
 namespace myMeetings
 {
     /// <summary>
@@ -181,7 +182,6 @@ namespace myMeetings
                 Str += string.Format("\n{0} {1} {2} - {3}", meet.Name, meet.DateMeeting.ToShortDateString(), meet.StartTime, meet.EndTime);
             }
             ExportListMeetingsToWord(Str, path);
-            Console.WriteLine("Файл сохранен");
             //Console.WriteLine("Для продолжения нажмите любую клавишу:");
             //Console.ReadKey();
         }
@@ -386,12 +386,12 @@ namespace myMeetings
         /// <param name="fileName">Путь для создания файла.</param>
         public void ExportListMeetingsToWord(string str, string fileName)
         {
-            var wordApp = new Word.Application();
-            Word.Document wordDoc = wordApp.Documents.Add();
-            wordDoc.Content.Text = str;
-            wordApp.Visible = true;
-            wordDoc.SaveAs2(fileName);
-            wordApp.Application.Documents.Close(fileName);
+            Document doc = new Document();
+            Section section = doc.AddSection();
+            Paragraph paragraph = section.AddParagraph();
+            paragraph.AppendText(str);
+            doc.SaveToFile(fileName, FileFormat.Docx2010);
+            Console.WriteLine("Файл сохранен");
         }
     }
 }
